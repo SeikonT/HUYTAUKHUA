@@ -364,3 +364,43 @@
     });
   });
   
+ const bgMusic = document.getElementById('bg-music');
+
+    function handleVideoSound(video) {
+      const reduceVolume = () => {
+        if (!video.muted && video.volume > 0 && !video.paused) {
+          bgMusic.volume = 0.2;
+        }
+      };
+
+      const restoreVolume = () => {
+        bgMusic.volume = 1;
+      };
+
+      video.addEventListener('play', reduceVolume);
+      video.addEventListener('pause', restoreVolume);
+      video.addEventListener('ended', restoreVolume);
+      video.addEventListener('volumechange', () => {
+        if (video.muted || video.volume === 0 || video.paused) {
+          restoreVolume();
+        } else {
+          reduceVolume();
+        }
+      });
+    }
+
+    function observeNewVideos() {
+      document.querySelectorAll('video').forEach(video => {
+        if (!video.dataset.volumeHandled) {
+          handleVideoSound(video);
+          video.dataset.volumeHandled = 'true';
+        }
+      });
+    }
+
+    const observer = new MutationObserver(observeNewVideos);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      observeNewVideos();
+    });
