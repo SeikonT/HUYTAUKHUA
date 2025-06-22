@@ -222,14 +222,14 @@
       showModalContent(currentGallery[currentIndex]);
     });
 
-    startBtn.addEventListener('click', () => {
-      intro.classList.add('fade');
-      setTimeout(() => {
-        tabs.classList.add('show');
-        document.querySelector('.gallery').classList.add('active');
-        updateGalleryHeight();
-      }, 1500);
-    });
+  startBtn.addEventListener('click', () => {
+  intro.classList.add('fade');
+  setTimeout(() => {
+    tabs.classList.add('show');
+    document.querySelector('.gallery').classList.add('active');
+    updateGalleryHeight();
+  }, 1500);
+});
 
     function updateGalleryHeight() {
       const activeGallery = document.querySelector('.gallery.active');
