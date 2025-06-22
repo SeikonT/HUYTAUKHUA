@@ -176,7 +176,7 @@
           { type: 'video', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/5534487234057.mp4?v=1749297573702', desc: 'Chuyến đi chụp hình cùng với view tuyệt đẹp!' },
        
       ],
-         "Đà Lạt": [
+         "Đà Lạt1": [
        { type: 'image', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/9af974cf66655e47d8f33681b515f3aa.gif?v=1749275036992', desc: 'Chuyến đi Đà Lạt 2025 - Thác Datanla' },
         { type: 'image', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/9af974cf66655e47d8f33681b515f3aa.gif?v=1749275036992', desc: 'Chuyến đi Đà Lạt 2025 - Thác Datanla' },
         { type: 'video', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/video0_1-1.mov?v=1749275074359', desc: 'Cảnh quay chill buổi tối ở hồ Xuân Hương' },
@@ -227,7 +227,7 @@
         { type: 'video', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/video0_1-1.mov?v=1749275074359', desc: 'Cảnh quay chill buổi tối ở hồ Xuân Hương' },
       ],
 
-         "Đà Lạt": [
+         "Đà Lạt2": [
        { type: 'image', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/9af974cf66655e47d8f33681b515f3aa.gif?v=1749275036992', desc: 'Chuyến đi Đà Lạt 2025 - Thác Datanla' },
         { type: 'image', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/9af974cf66655e47d8f33681b515f3aa.gif?v=1749275036992', desc: 'Chuyến đi Đà Lạt 2025 - Thác Datanla' },
         { type: 'video', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/video0_1-1.mov?v=1749275074359', desc: 'Cảnh quay chill buổi tối ở hồ Xuân Hương' },
@@ -276,7 +276,7 @@
         { type: 'image', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/9af974cf66655e47d8f33681b515f3aa.gif?v=1749275036992', desc: 'Chuyến đi Đà Lạt 2025 - Thác Datanla' },
         { type: 'video', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/video0_1-1.mov?v=1749275074359', desc: 'Cảnh quay chill buổi tối ở hồ Xuân Hương' },
         { type: 'video', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/video0_1-1.mov?v=1749275074359', desc: 'Cảnh quay chill buổi tối ở hồ Xuân Hương' },
-      ],
+      ]
 
     };
 
