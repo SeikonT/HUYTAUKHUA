@@ -272,3 +272,18 @@
     .right-arrow {
       right: 10px;
     }
+ .redirect-button {
+      background-color: #ff69b4;
+      color: white;
+      font-size: 18px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .redirect-button:hover {
+      background-color: #ff4b9c;
+      transform: scale(1.05);
+    }
