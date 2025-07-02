@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tường kỷ niệm dễ thương 💕</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: #fff0f5;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+    }
+    .form-input, .form-button, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      font-family: 'Quicksand', sans-serif;
+    }
+    .form-button {
+      background-color: #ff69b4;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+    }
+    .form-button:hover {
+      background-color: #ff4081;
+    }
+    .avatar-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 10px auto;
+      display: none;
+    }
+    .post {
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .post img, .post video {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .reaction-button {
+      font-size: 20px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Đăng nhập bằng tên và ảnh đại diện -->
+  <div id="welcomeSection">
+    <h2>💖 Xin chào!</h2>
+    <p>Nhập tên và chọn ảnh đại diện để tiếp tục:</p>
+    <input type="text" id="nameInput" class="form-input" placeholder="Tên của bạn">
+    <input type="file" id="avatarInput" accept="image/*" class="form-input">
+    <img id="avatarPreview" class="avatar-preview">
+    <button class="form-button" onclick="saveProfile()">Bắt đầu</button>
+  </div>
+
+  <!-- Giao diện đăng bài -->
+  <div id="mainSection" style="display:none;">
+    <h2>📸 Chia sẻ kỷ niệm</h2>
+    <form id="postForm">
+      <input type="file" id="mediaInput" accept="image/*,video/*" class="form-input" required>
+      <textarea id="captionInput" class="form-input" placeholder="Viết đôi dòng cảm nghĩ..." required></textarea>
+      <button class="form-button" type="submit">Đăng bài</button>
+    </form>
+    <hr>
+    <div id="postList"></div>
+  </div>
+</div>
+
+<script>
+  // 👉 Thay các thông tin bên dưới bằng của bạn trong Firebase console
+  const firebaseConfig = {
+   apiKey: "AIzaSyDvb0kYgfwJTKsGw4gqqw0Oe1owo9rXqVs",
+    authDomain: "poster-b5831.firebaseapp.com",
+    databaseURL: "https://poster-b5831-default-rtdb.firebaseio.com",
+    projectId: "poster-b5831",
+    storageBucket: "poster-b5831.firebasestorage.app",
+    messagingSenderId: "53330802752",
+    appId: "1:53330802752:web:27c9955bd3efc4dc32c7a5",
+    measurementId: "G-Y86P09GM06"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  const avatarInput = document.getElementById("avatarInput");
+  const avatarPreview = document.getElementById("avatarPreview");
+
+  avatarInput.addEventListener("change", () => {
+    const file = avatarInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        avatarPreview.src = e.target.result;
+        avatarPreview.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  function saveProfile() {
+    const name = document.getElementById("nameInput").value.trim();
+    const file = avatarInput.files[0];
+    if (!name || !file) return alert("Vui lòng nhập tên và chọn ảnh!");
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const avatar = e.target.result;
+      localStorage.setItem("user", JSON.stringify({ name, avatar }));
+      document.getElementById("welcomeSection").style.display = "none";
+      document.getElementById("mainSection").style.display = "block";
+      loadPosts();
+    };
+    reader.readAsDataURL(file);
+  }
+
+  const postForm = document.getElementById("postForm");
+  const postList = document.getElementById("postList");
+
+  postForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const file = document.getElementById("mediaInput").files[0];
+    const caption = document.getElementById("captionInput").value.trim();
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!file || !caption || !user) return alert("Vui lòng nhập đủ thông tin!");
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const postData = {
+        timestamp: Date.now(),
+        user,
+        caption,
+        media: e.target.result,
+        type: file.type.startsWith("image") ? "image" : "video",
+        reactions: 0
+      };
+      db.ref("posts").push(postData);
+      postForm.reset();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function loadPosts() {
+    db.ref("posts").on("value", snapshot => {
+      postList.innerHTML = "";
+      const data = snapshot.val();
+      if (!data) return;
+      const entries = Object.entries(data).sort((a, b) => b[1].timestamp - a[1].timestamp);
+      entries.forEach(([id, post]) => {
+        const div = document.createElement("div");
+        div.className = "post";
+        div.innerHTML = `
+          <div style="display:flex; align-items:center; margin-bottom:10px;">
+            <img src="${post.user.avatar}" style="width:40px; height:40px; border-radius:50%; margin-right:10px;">
+            <strong>${post.user.name}</strong>
+          </div>
+          ${post.type === 'image' ? `<img src="${post.media}">` : `<video src="${post.media}" controls></video>`}
+          
+          <p>${post.caption}</p>
+<small>🕒 ${new Date(post.timestamp).toLocaleString()}</small>
+          <button class="reaction-button" onclick="toggleReaction('${id}')" id="react-${id}">❤️ ${post.reactions || 0}</button>
+        `;
+        postList.appendChild(div);
+      });
+    });
+  }
+
+  function toggleReaction(postId) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user?.name) return alert("Bạn chưa đăng nhập");
+    const reactionRef = db.ref(`posts/${postId}/reactors/${user.name}`);
+    reactionRef.once("value", snap => {
+      if (snap.exists()) {
+        reactionRef.remove();
+        db.ref(`posts/${postId}/reactions`).transaction(count => (count || 1) - 1);
+      } else {
+        reactionRef.set(true);
+        db.ref(`posts/${postId}/reactions`).transaction(count => (count || 0) + 1);
+      }
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user?.name && user?.avatar) {
+      document.getElementById("welcomeSection").style.display = "none";
+      document.getElementById("mainSection").style.display = "block";
+      loadPosts();
+    }
+  });
+</script>
+</body>
+</html>
