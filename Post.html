@@ -64,17 +64,7 @@
       background: none;
       cursor: pointer;
     }
-    .item {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+   
   </style>
 </head>
 <body>
@@ -224,26 +214,7 @@
   });
 
 
-  const observerOptions = {
-    threshold: 0.25
-  };
-
-  const visibilityObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      } else {
-        entry.target.classList.remove('visible');
-      }
-    });
-  }, observerOptions);
-
-  // Quan sát tất cả các .item sau khi load
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.gallery .item').forEach(item => {
-      visibilityObserver.observe(item);
-    });
-  });
+  
 
   
 </script>
