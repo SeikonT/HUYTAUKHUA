@@ -258,7 +258,7 @@
        { type: 'image', src: '/DLA/DLA.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
        { type: 'image', src: '/DLA/DLA.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
    
-        { type: 'video', src: 'https://drive.google.com/file/d/1F1EYgxWKpwgoM-ZviD8PEJNSalyYUbPT/view?usp=sharing', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
+        { type: 'video', src: 'https://drive.google.com/file/d/1F1EYgxWKpwgoM-ZviD8PEJNSalyYUbPT/preview', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
         { type: 'video', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/video0_1-1.mov?v=1749275074359', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
       ],
 
