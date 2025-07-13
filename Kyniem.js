@@ -258,7 +258,7 @@
        { type: 'image', src: '/DLA/DLA.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
        { type: 'image', src: '/DLA/DLA.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
    
-        { type: 'video', src: 'https://drive.google.com/file/d/1SOccY1_SV2un1QKIGKzGxqYwDWltxJ1T/preview', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
+        { type: 'drive-video', src: 'https://drive.google.com/file/d/1SOccY1_SV2un1QKIGKzGxqYwDWltxJ1T/preview', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
         { type: 'video', src: 'https://cdn.glitch.global/2bc1bbee-c3cd-457d-a1a4-295e5b000367/video0_1-1.mov?v=1749275074359', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
       ],
 
@@ -579,28 +579,26 @@
 
 
 
-// Trong showModalContent, thay đổi để nhúng iframe nếu là video Drive
+/ 2. Hiển thị modal
 function showModalContent(item) {
-  if (item.type === 'image') {
-    media.innerHTML = `<img src="${item.src}" style="animation: fadeIn 0.5s ease;" />`;
-  } else {
-    // Kiểm tra link Drive preview
-    if (item.src.includes('drive.google.com') && item.src.includes('/preview')) {
-      media.innerHTML = `
-        <iframe
-          src="${item.src}"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          allow="autoplay; encrypted-media"
-          style="animation: fadeIn 0.5s ease; border-radius: 12px;"
-        ></iframe>`;
-    } else {
-      media.innerHTML = `<video src="${item.src}" autoplay controls style="animation: fadeIn 0.5s ease;"></video>`;
-    }
-  }
   desc.innerText = item.desc;
+  if (item.type === 'drive-video') {
+    media.innerHTML = `
+      <div class="video-wrapper" style="position:relative;padding-top:56.25%;background:#000;">
+        <img src="${item.poster}" id="drivePoster" style="position:absolute;...;cursor:pointer;" />
+        <div id="playButton" style="position:absolute;...;cursor:pointer;">▶️</div>
+      </div>`;
+    document.getElementById('drivePoster').addEventListener('click', loadDriveVideo);
+    document.getElementById('playButton').addEventListener('click', loadDriveVideo);
+  } else if (item.type === 'image') {
+    media.innerHTML = `<img src="${item.src}" ... />`;
+  } else {
+    media.innerHTML = `<video src="${item.src}" autoplay controls ...></video>`;
+  }
 }
 
-// Phần initialization & event binding không đổi
-// ...
+// 3. Khi người dùng click play:
+function loadDriveVideo() {
+  const url = data["Đà Lạt"][currentIndex].src; // hoặc lấy đúng gallery và index
+  media.innerHTML = `<iframe src="${url}" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" style="border-radius:12px;"></iframe>`;
+}
