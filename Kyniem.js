@@ -415,39 +415,13 @@
       modal.classList.add('active');
     }
 
-    function showModalContent(item) {
-  desc.innerText = item.desc;
+   function showModalContent(item) {
+      media.innerHTML = item.type === 'image'
+        ? `<img src="${item.src}" style="animation: fadeIn 0.5s ease;" />`
+        : `<video src="${item.src}" autoplay controls style="animation: fadeIn 0.5s ease;"></video>`;
+      desc.innerText = item.desc;
+    }
 
-  if (item.type === 'drive-video') {
-    // hiển thị poster + nút play
-    media.innerHTML = `
-      <div style="position:relative;padding-top:56.25%;background:#000;border-radius:12px;overflow:hidden;">
-        <img id="drivePoster" src="${item.poster}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;cursor:pointer;" />
-        <div id="playButton" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3rem;color:white;cursor:pointer;">▶️</div>
-      </div>
-    `;
-    document.getElementById('drivePoster').addEventListener('click', loadDriveVideo);
-    document.getElementById('playButton').addEventListener('click', loadDriveVideo);
-  }
-  else if (item.type === 'image') {
-    media.innerHTML = `<img src="${item.src}" style="animation: fadeIn 0.5s ease; border-radius:12px; width:100%; height:auto;" />`;
-  }
-  else {
-    media.innerHTML = `<video src="${item.src}" autoplay controls style="animation: fadeIn 0.5s ease; border-radius:12px; width:100%; height:auto;"></video>`;
-  }
-}
-
-function loadDriveVideo() {
-  const item = currentGallery[currentIndex];
-  media.innerHTML = `
-    <iframe
-      src="${item.src}"
-      frameborder="0"
-      allow="autoplay; encrypted-media"
-      style="position:absolute;top:0;left:0;width:100%;height:100%;"
-    ></iframe>
-  `;
-}
     document.getElementById('closeBtn').addEventListener('click', () => {
       modal.classList.remove('active');
       media.innerHTML = '';
