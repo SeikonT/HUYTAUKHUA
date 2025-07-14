@@ -157,7 +157,6 @@
        { type: 'image', src: '/DLAP8/DLA155.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
        { type: 'image', src: '/DLAP8/DLA156.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
        { type: 'image', src: '/DLAP8/DLA158.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
-       { type: 'image', src: '/DLAP8/DLA158.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
        { type: 'image', src: '/DLAP8/DLA159.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
        { type: 'image', src: '/DLAP8/DLA160.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
        { type: 'image', src: '/DLAP9/DLA161.jpg', desc: 'Đà Lạt gọi tên mình, bạn gọi tên ký ức' },
